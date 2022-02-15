@@ -1,4 +1,4 @@
-# barcode
+# ฺBarcode Scanner
 
 A new Flutter project.
 
