@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:mybarcode/page/qr_create_page.dart';
+import 'package:mybarcode/page/qr_scan_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,55 +26,33 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String? scanResult;
-  bool checkYoutubeUrl = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Barcode Scanner'),
         ),
-        body: Container(
-            child: SizedBox(
-          height: 300,
-          width: double.infinity,
-          child: Card(
-              child: Column(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
-              Text('Result', style: TextStyle(fontSize: 25)),
-              Text(scanResult ??= '', style: TextStyle(fontSize: 30)),
-              Spacer(),
-              checkYoutubeUrl
-                  ? SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (await canLaunch(scanResult!))
-                            await launch(scanResult!);
-                        },
-                        style: ElevatedButton.styleFrom(primary: Colors.red),
-                        child: Text('Youtube',
-                            style: TextStyle(color: Colors.white)),
-                      ))
-                  : Container()
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => QRCreatePage())),
+                style: ElevatedButton.styleFrom(primary: Colors.red),
+                child: Text('Create QR Code',
+                    style: TextStyle(color: Colors.white)),
+              ),
+              const SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => QRScanPage())),
+                style: ElevatedButton.styleFrom(primary: Colors.red),
+                child:
+                    Text('Scan QR Code', style: TextStyle(color: Colors.white)),
+              ),
             ],
-          )),
-        )),
-        floatingActionButton:
-            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          FloatingActionButton(
-            onPressed: startScan,
-            child: Icon(Icons.qr_code_scanner),
           ),
-        ]));
-  }
-
-  startScan() async {
-    //อ่านข้อมูลจาก barcode ได้เป็นข้อความ
-    String? cameraScanResult = await scanner.scan();
-    setState(() {
-      scanResult = cameraScanResult;
-    });
-    if (scanResult!.contains('youtube.com')) checkYoutubeUrl = true;
+        ));
   }
 }

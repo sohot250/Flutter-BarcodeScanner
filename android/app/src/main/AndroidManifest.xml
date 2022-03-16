@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.barcode">
+    package="com.example.mybarcode">
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="barcode"
+        android:label="mybarcode"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
