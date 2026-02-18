@@ -1,6 +1,5 @@
-package com.example.mybarcode
+package com.example.barcode
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterActivity() {
-}
+class MainActivity : FlutterActivity()
